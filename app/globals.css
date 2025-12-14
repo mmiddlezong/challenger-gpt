@@ -1,26 +1,155 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* LoL Color Palette */
+  --lol-gold: #c8aa6e;
+  --lol-gold-dark: #785a28;
+  --lol-blue: #0ac8b9;
+  --lol-blue-dark: #005a82;
+  --lol-bg-darkest: #010a13;
+  --lol-bg-dark: #0a0f1a;
+  --lol-bg-card: #091428;
+  --lol-border: #1e2328;
+  --lol-text-primary: #f0e6d2;
+  --lol-text-secondary: #a09b8c;
+  --lol-text-muted: #5b5a56;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-background: var(--lol-bg-dark);
+  --color-foreground: var(--lol-text-primary);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--lol-border) var(--lol-bg-darkest);
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--lol-bg-darkest);
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--lol-border);
+  border-radius: 4px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: var(--lol-gold-dark);
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--lol-bg-dark);
+  color: var(--lol-text-primary);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  min-height: 100vh;
+}
+
+/* Hextech pattern background */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image: 
+    radial-gradient(ellipse at 20% 20%, rgba(10, 200, 185, 0.03) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(200, 170, 110, 0.03) 0%, transparent 50%),
+    linear-gradient(135deg, transparent 40%, rgba(200, 170, 110, 0.01) 50%, transparent 60%);
+  pointer-events: none;
+}
+
+/* Selection styling */
+::selection {
+  background-color: rgba(200, 170, 110, 0.3);
+  color: var(--lol-text-primary);
+}
+
+/* Focus styling */
+:focus-visible {
+  outline: 2px solid var(--lol-gold);
+  outline-offset: 2px;
+}
+
+/* Link styling */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Custom utilities */
+.text-glow-gold {
+  text-shadow: 0 0 20px rgba(200, 170, 110, 0.5);
+}
+
+.text-glow-blue {
+  text-shadow: 0 0 20px rgba(10, 200, 185, 0.5);
+}
+
+.border-glow-gold {
+  box-shadow: 0 0 20px rgba(200, 170, 110, 0.2);
+}
+
+.border-glow-blue {
+  box-shadow: 0 0 20px rgba(10, 200, 185, 0.2);
+}
+
+/* Smooth transitions for interactive elements */
+button,
+a,
+[role="button"] {
+  transition: all 0.15s ease-out;
+}
+
+/* Code block styling */
+pre {
+  background-color: var(--lol-bg-darkest) !important;
+  border: 1px solid var(--lol-border);
+  border-radius: 0.5rem;
+}
+
+code {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+}
+
+/* Animation for subtle hover effects */
+@keyframes pulse-gold {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(200, 170, 110, 0);
+  }
+  50% {
+    box-shadow: 0 0 20px 2px rgba(200, 170, 110, 0.3);
+  }
+}
+
+.animate-pulse-gold {
+  animation: pulse-gold 2s ease-in-out infinite;
+}
+
+/* Gradient borders */
+.gradient-border-gold {
+  position: relative;
+}
+
+.gradient-border-gold::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, var(--lol-gold), var(--lol-gold-dark));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
 }
